@@ -50,6 +50,7 @@ function App() {
       <LotteryList
         lotteries={lotteries.data}
         selectedLotteries={selectedLotteries}
+        loading={lotteries.loading}
         onSelect={handleSelect}
       />
       <RegisterModal
