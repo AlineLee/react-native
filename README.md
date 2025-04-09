@@ -27,110 +27,7 @@ Feel free to check out the corresponding branch of any given checkpoint if you�
 
 With that out of the way, let’s start!
 
-## Part 1: Project setup
-
-Since our project became a monorepo with two applications - backend and web - we need to put some work into restructuring the repository so that tools like TypeScript, ESLint and others work correctly. It is hard to set up a monorepo with nested package.json files and it usually requires installing additional tooling and a lot of scripts (and it’s out of scope of this homework exercise) - that’s why we won’t be doing that and we will be splitting our repo without nesting package.json and all the other configuration files.
-
-<details>
-  <summary><b>Step 1: Move backend project</b></summary><br>
-
-  First step would be to move the backend project into it’s own directory. Additionally, we won’t be needing the client project as we will be creating a new web project with React and Typescript already set up - you can save some code from there if you’d like to re-use it later.
-
-  ```bash
-    # Remove unnecessary project
-    rm -rf client
-
-    # Create a directory for our backend project
-    mkdir backend
-
-    # Move all the files to the new directory
-    mv scripts package-lock.json package.json server.ts tsconfig.json types.ts .babelrc .env.template .eslintrc.js .gitignore .prettierrc.js backend
-  ```
-
-  <b>Some of the scripts included in backend/package.json will also need to be updated!</b>
-</details>
-
-<details>
-  <summary><b>Step 2: Create a new React project</b></summary><br>
-
-  Run the following command in the root of the repository to create a new vite project with React and TypeScript already set-up.  
-
-  ```bash
-    npm create vite web -- --template react-ts
-  ```
-</details>
-
-<details>
-  <summary><b>Step 3: Code formatting for web project</b></summary><br>
-
-  Vite template comes with ESLint pre-configured, but it is missing a vital component - code formatter. Luckily, it is really simple to add it:
-
-  1.Install necessary dependencies
-  ```bash
-    npm install prettier@2 eslint-plugin-prettier eslint-config-prettier -D
-  ```
-
-  2.Adjust .eslintrc.cjs configuration
-  ```js
-    /* eslint-env node */
-
-    module.exports = {
-        root: true,
-        env: { browser: true, es2020: true },
-        extends: [
-            'eslint:recommended',
-            'plugin:@typescript-eslint/recommended',
-            'plugin:@typescript-eslint/recommended-requiring-type-checking',
-            'plugin:react-hooks/recommended',
-            // Include prettier here
-            'prettier',
-        ],
-        parser: '@typescript-eslint/parser',
-        parserOptions: {
-            ecmaVersion: 'latest',
-            sourceType: 'module',
-            project: true,
-            tsconfigRootDir: __dirname,
-        },
-        // Include prettier here
-        plugins: ['react-refresh', 'prettier'],
-        rules: {
-            'react-refresh/only-export-components': [
-            'warn',
-            { allowConstantExport: true },
-            ],
-            '@typescript-eslint/no-non-null-assertion': 'off',
-            // Add a rule for prettier errors
-            'prettier/prettier': 'error',
-        },
-    }
-  ```
-
-  3.Add .prettierrc.cjs to our web project
-  ```js
-    module.exports = {
-        "singleQuote": true,
-        "trailingComma": "all"
-    }
-  ```
-  At this point, we should have fully working web and backend projects in the root of our repository.
-</details>
-
-<details>
-  <summary><b>Step 4: Add MaterialUI</b></summary><br>
-
-  To make things simples for feature implementation and focus on React, we will be using MaterialUI library for our frontend components. You can fine installation instructions here -https://mui.com/material-ui/getting-started/installation/.
-</details>
-
-<details>
-  <summary><b>Step 5: Template cleanup (Optional)</b></summary><br>
-
-  The web project template includes starting code that we don’t want - you can remove some unnecessary code, files and assets in this step. This is an optional step because you’re going to change it anyway while working on various features.
-</details>
-
-> 💡 You are now here → https://github.com/callstack-workshops/abbott-module-3-homework/tree/part-2 
-
-## Part 2: Add a lottery
+## Part 1: Add a lottery
 
 Given the UI design implement Add a lottery feature. 
 
@@ -179,9 +76,9 @@ Helpful resources:
 - Notification component - https://mui.com/material-ui/react-snackbar/
 - LoadingButton component from MaterialUI is a part of a complimentary library -https://www.npmjs.com/package/@mui/lab
 
-> 💡 You are now here → https://github.com/callstack-workshops/abbott-module-3-homework/tree/part-3
+> 💡 You are now here → https://github.com/callstack-workshops/01-Hello-Fresh-training-homework/tree/checkpoint-1
 
-## Part 3: List lotteries
+## Part 2: List lotteries
 
 Given the UI design implement List lotteries feature. 
 
@@ -224,9 +121,9 @@ List lotteries feature:
 - Register FAB button should be disabled when no lotteries are selected
 - Register modal should close after successful submission and notification with a message should be shown
 
-> 💡 You are now here → https://github.com/callstack-workshops/abbott-module-3-homework/tree/part-4
+> 💡 You are now here → https://github.com/callstack-workshops/01-Hello-Fresh-training-homework/tree/checkpoint-2
 
-## Part 4: Filter lotteries
+## Part 3: Filter lotteries
 
 Given the UI design implement Filter lotteries feature.
 
@@ -248,4 +145,4 @@ Filter lotteries:
 - Typing in the input should filter the results
 - When there are no search results for a given filter, no search result information should be displayed
 
-> 💡 You are now here → https://github.com/callstack-workshops/abbott-module-3-homework/tree/part-4-done 
+> 💡 You are now here → https://github.com/callstack-workshops/01-Hello-Fresh-training-homework/tree/checkpoint-3
