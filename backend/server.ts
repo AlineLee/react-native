@@ -37,8 +37,12 @@ type RegisterResponse = {
 
 // Redis setup
 
-const { REDIS_URL } = process.env;
-const client = redis.createClient({ url: REDIS_URL });
+const { REDIS_ENDPOINT, REDIS_PASSWORD, REDIS_PORT } = process.env;
+
+const redisUrl = `rediss://default:${REDIS_PASSWORD}@${REDIS_ENDPOINT}:${REDIS_PORT}`;
+const client = redis.createClient({
+  url: redisUrl,
+});
 // This is going to write any Redis error to console.
 client.on('error', (error: Error) => {
   console.error(error);
