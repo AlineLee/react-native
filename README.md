@@ -78,19 +78,19 @@ Given the UI design implement Add a lottery feature.
 <details>
   <summary><b>Add lottery FAB button</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 06 34](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/6044cdf1-07b9-421b-a6b0-98dc005f2324)
+![img.png](assets/add_loterry.png)
 </details>
 
 <details>
   <summary><b>Add lottery modal</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 06 46](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/e56f250d-251d-43eb-94e5-ee06fece7ece)
+![img.png](assets/add_modal.png)
 </details>
 
 <details>
   <summary><b>Add lottery modal form validation</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 08 48](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/783f4ca1-9c3c-411c-8cc7-86736152f283)
+![img.png](assets/modal_validation.png)
 </details>
 
 <details>
@@ -102,7 +102,8 @@ Given the UI design implement Add a lottery feature.
 <details>
   <summary><b>Notification after successful action</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 21 53](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/bf80c280-46a6-4aff-ac45-98aa3a4dfdd8)
+![img.png](assets/nofication_loterry.png)
+  
 </details>
 
 Add lottery feature should have following things implemented:
@@ -129,9 +130,9 @@ Given the UI design implement List lotteries feature.
 <details>
   <summary><b>Fetch and display lottery data</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 37 55](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/3c1eac8e-072a-44e9-8f65-f2a41588fe8e)
-  ![Screenshot 2023-07-11 at 10 44 59](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/e306725f-128d-4219-9426-6e09c04c093e)
-  ![Screenshot 2023-07-11 at 10 52 45](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/a700006a-ab52-4ba8-9021-d01e68ca8270)
+![img.png](assets/lotteries_list.png)
+![img.png](assets/lotteries_not_found.png)
+![img.png](assets/lotteries_loading.png)
 
 
 </details>
@@ -139,19 +140,20 @@ Given the UI design implement List lotteries feature.
 <details>
   <summary><b>Make lotteries selectable and add register FAB button</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 38 36](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/ac5fd39a-14be-4b09-8077-136ea66f8ebf)
+![img.png](assets/lotteries_select.png)
+ 
 </details>
 
 <details>
   <summary><b>Add Register modal with name input and validation</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 39 26](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/50988024-0da9-46cf-af93-3b5dc5ebe090)
+  ![img.png](assets/register_modal.png)
 </details>
 
 <details>
   <summary><b>Register to selected lotteries and notification message</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 40 41](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/95b60ead-576e-49cb-8510-b0df33b226dc)
+![img.png](assets/register_message.png)
 
 </details>
 
@@ -174,13 +176,15 @@ Given the UI design implement Filter lotteries feature.
 <details>
   <summary><b>Add text input to filter fetched lotteries</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 11 02 52](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/fd7a79fb-bd43-4031-99d7-d8f1ed507095)
+![img.png](assets/search.png)
+
 </details>
 
 <details>
   <summary><b>Handle no search result case</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 11 08 29](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/46e6c84b-76f1-4e36-9e79-0963b2f802d9)
+![img.png](assets/search_no_results.png)
+
 </details>
 
 Filter lotteries:
