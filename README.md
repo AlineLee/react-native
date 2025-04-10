@@ -96,7 +96,7 @@ Given the UI design implement Add a lottery feature.
 <details>
   <summary><b>Add lottery loading state</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 08 48](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/cb7ec061-c586-4466-b8ff-f3eccc5519d1)
+  ![img.png](assets/add_lottery_loading.png)
 </details>
 
 <details>
