@@ -1,4 +1,4 @@
-# Module 3 Homework
+# Module 1 React Essentials Homework
 
 While having lunch, your CTO and your Tech Leader met and discussed about a technology that most big companies are using which improves code maintenance and reusability by using components. They ended up agreeing that React could indeed help BigCorp deliver the best lottery website.
 
@@ -6,9 +6,9 @@ While having lunch, your CTO and your Tech Leader met and discussed about a tech
 ### Homework management 🏠
 
 The final result of all homework is the React Native Application full of features implemented iteratively in the end phase of each module in the course. In order to keep consistency and track all of your changes we highly recommend you to create your own GitHub repository where your work as a participant will be stored. Your GitHub repository should be shared with all trainers, which will enable us to verify your work and communicate:
-- Wiktor Szlegier: https://github.com/Wiiktor22
-- Adam Trzciński: https://github.com/adamTrz
-- Mariusz Pasiński: https://github.com/mani3xis 
+- Tomasz Leśniakiewicz - https://github.com/rinej
+- Bartłomiej Tomczyk - https://github.com/barttom
+- Michał Staniewski - https://github.com/michalstaniewski-cs
 
 Each module in the course will end up with homework consisting of a few tasks to fulfil. We would like to suggest a comfortable system for you to submit each task of the homework as a separate PR to the main branch in your repository. This will create a space for us to communicate with you, by doing code reviews - thanks to that we will be able to check your homework, discuss some uncertainties, or respond to questions you will leave in the PR. In case you have any trouble with homework you can always book a 1 to 1 session with the trainer, and also don't hesitate to ask your questions in the dedicated communication channel. Keep in mind that you don't have to worry about being blocked for the next homework, every homework will have a starting point, so you always will be able to override the content of your repository with the prepared starting point.
 
@@ -27,6 +27,50 @@ Feel free to check out the corresponding branch of any given checkpoint if you�
 
 With that out of the way, let’s start!
 
+## Setup
+Fork the repo and add access for the mentors. Below you find the instruction, how to run the boilerplate.
+
+### Backend
+We prepared a simple server for the homework. To run it you need to additionally add redis database adn add credentials for the project.
+For Redis databae we use upstash service.
+<br>
+1. Open https://upstash.com/, click 'Start for free' and create an account.
+2. Click 'Create database' button.
+3. Fill the information like name, region et.c - it's up to you. Then click 'Next' button.
+4. Select 'Free' plan and go to the next step.
+5. In the summary step click 'Create' button. you should see a settings page for your new database.
+
+After creating a database setup credentials to connect  in our server <br>
+1. Copy `backend/.env.template` to `backend/.env`
+2. Fill the data for you database
+```
+REDIS_ENDPOINT=
+REDIS_PASSWORD=
+REDIS_PORT=
+```
+![img.png](assets/upstash_data.png)
+#### Running teh backend
+After configuration you can run the backend
+```bash
+cd backend
+```
+```bash
+npm run dev
+```
+### Web
+After running the server we are ready to run our React app
+1. Copy `web/.env.template` to `web/.env`.
+2. Setup backend server. By default should be `VITE_API_URL=http://localhost:3000`
+
+#### Running teh React app
+After configuration you can run the backend
+```bash
+cd web
+```
+```bash
+npm run dev
+```
+
 ## Part 1: Add a lottery
 
 Given the UI design implement Add a lottery feature. 
@@ -34,31 +78,32 @@ Given the UI design implement Add a lottery feature.
 <details>
   <summary><b>Add lottery FAB button</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 06 34](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/6044cdf1-07b9-421b-a6b0-98dc005f2324)
+![img.png](assets/add_loterry.png)
 </details>
 
 <details>
   <summary><b>Add lottery modal</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 06 46](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/e56f250d-251d-43eb-94e5-ee06fece7ece)
+![img.png](assets/add_modal.png)
 </details>
 
 <details>
   <summary><b>Add lottery modal form validation</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 08 48](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/783f4ca1-9c3c-411c-8cc7-86736152f283)
+![img.png](assets/modal_validation.png)
 </details>
 
 <details>
   <summary><b>Add lottery loading state</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 08 48](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/cb7ec061-c586-4466-b8ff-f3eccc5519d1)
+  ![img.png](assets/add_lottery_loading.png)
 </details>
 
 <details>
   <summary><b>Notification after successful action</b></summary><br>
 
-  ![Screenshot 2023-07-10 at 15 21 53](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/bf80c280-46a6-4aff-ac45-98aa3a4dfdd8)
+![img.png](assets/nofication_loterry.png)
+  
 </details>
 
 Add lottery feature should have following things implemented:
@@ -85,9 +130,9 @@ Given the UI design implement List lotteries feature.
 <details>
   <summary><b>Fetch and display lottery data</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 37 55](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/3c1eac8e-072a-44e9-8f65-f2a41588fe8e)
-  ![Screenshot 2023-07-11 at 10 44 59](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/e306725f-128d-4219-9426-6e09c04c093e)
-  ![Screenshot 2023-07-11 at 10 52 45](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/a700006a-ab52-4ba8-9021-d01e68ca8270)
+![img.png](assets/lotteries_list.png)
+![img.png](assets/lotteries_not_found.png)
+![img.png](assets/lotteries_loading.png)
 
 
 </details>
@@ -95,19 +140,20 @@ Given the UI design implement List lotteries feature.
 <details>
   <summary><b>Make lotteries selectable and add register FAB button</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 38 36](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/ac5fd39a-14be-4b09-8077-136ea66f8ebf)
+![img.png](assets/lotteries_select.png)
+ 
 </details>
 
 <details>
   <summary><b>Add Register modal with name input and validation</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 39 26](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/50988024-0da9-46cf-af93-3b5dc5ebe090)
+  ![img.png](assets/register_modal.png)
 </details>
 
 <details>
   <summary><b>Register to selected lotteries and notification message</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 10 40 41](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/95b60ead-576e-49cb-8510-b0df33b226dc)
+![img.png](assets/register_message.png)
 
 </details>
 
@@ -130,13 +176,15 @@ Given the UI design implement Filter lotteries feature.
 <details>
   <summary><b>Add text input to filter fetched lotteries</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 11 02 52](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/fd7a79fb-bd43-4031-99d7-d8f1ed507095)
+![img.png](assets/search.png)
+
 </details>
 
 <details>
   <summary><b>Handle no search result case</b></summary><br>
 
-  ![Screenshot 2023-07-11 at 11 08 29](https://github.com/callstack-workshops/abbott-module-3-homework/assets/50460088/46e6c84b-76f1-4e36-9e79-0963b2f802d9)
+![img.png](assets/search_no_results.png)
+
 </details>
 
 Filter lotteries:
@@ -146,3 +194,6 @@ Filter lotteries:
 - When there are no search results for a given filter, no search result information should be displayed
 
 > 💡 You are now here → https://github.com/callstack-workshops/01-Hello-Fresh-training-homework/tree/checkpoint-3
+
+## Finish
+🎉 Congratulations, you have finished the homework! Feel free to send solutions as a pull requests to your mentors.
