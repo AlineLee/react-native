@@ -8,10 +8,12 @@ const Home = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState('');
 
-  const handleCloseModal = (lottery: Lottery) => {
+  const handleCloseModal = (lottery?: Lottery) => {
     setShowModal(false);
-    setMessage(lottery.name);
-    setShowNotification(true);
+    if (lottery) {
+      setMessage(lottery.name);
+      setShowNotification(true);
+    }
   };
 
   const handleAddLottery = () => setShowModal(!showModal);

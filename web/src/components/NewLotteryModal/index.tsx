@@ -1,86 +1,112 @@
-import { Box, Button, Input, Typography, Modal } from '@mui/material';
-import { useFormik } from 'formik';
+import { Box, Input, Typography, Modal, Button } from '@mui/material';
+import { Formik } from 'formik';
 import { createLottery } from '../../service/lottery';
 import { useState } from 'react';
 import { Lottery } from '../../types';
+import { object, string } from 'yup';
 
 const NewLotteryModal = ({
   open,
   onClose,
 }: {
   open: boolean;
-  onClose: (lottery: Lottery) => void;
+  onClose: (lottery?: Lottery) => void;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClose = (lottery: Lottery) => {
+  const handleClose = (lottery?: Lottery) => {
     onClose(lottery);
   };
 
-  const formik = useFormik({
-    validateOnChange: true,
-    initialValues: {
-      name: '',
-      prize: '',
-    },
-    onSubmit: (values) => {
-      setIsLoading(true);
-      createLottery({ name: values.name, prize: values.prize })
-        .then((values) => handleClose(values))
-        .catch((error) => {
-          // todo: let the user know the error
-          console.log(error);
-        })
-        .finally(() => setIsLoading(false));
-    },
+  const initialValues = {
+    name: '',
+    prize: '',
+  };
+
+  const validationSchema = object({
+    name: string().min(3, 'Min 3 letters').required('The name is required'),
+    prize: string()
+      .required('The prize is required')
+      .matches(/^[0-9]*$/, 'Only numbers'), // only numbers?
   });
 
+  const handleSubmit = (values: { name: string; prize: string }) => {
+    setIsLoading(true);
+    createLottery({ name: values.name, prize: values.prize })
+      .then((values) => handleClose(values))
+      .catch((error) => {
+        // todo: let the user know the error
+        console.log(error);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
     >
-      <form onSubmit={formik.handleSubmit}>
-        <Box
-          position="absolute"
-          top="50%"
-          left="50%"
-          padding="24px"
-          bgcolor="white"
-          sx={{ transform: 'translate(-50%,-50%)' }}
-          display="flex"
-          flexDirection="column"
-          alignItems="flex-start"
-          gap="24px"
+      {({ isSubmitting, handleSubmit, values, handleChange, errors }) => (
+        <Modal
+          open={open}
+          onClose={() => handleClose()}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
-          <Typography>Add a new lottery</Typography>
-          <Input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Lottery name"
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            required={true}
-          />
-          {/* Todo allow only numbers */}
-          <Input
-            id="prize"
-            name="prize"
-            placeholder="Lottery prize"
-            onChange={formik.handleChange}
-            value={formik.values.prize}
-            required={true}
-          />
-          <Button variant="outlined" type="submit">
-            {/* todo: use the component with the loading */}
-            {isLoading ? 'Loading...' : 'ADD'}
-          </Button>
-        </Box>
-      </form>
-    </Modal>
+          <form onSubmit={handleSubmit}>
+            <Box
+              position="absolute"
+              top="50%"
+              left="50%"
+              padding="24px"
+              bgcolor="white"
+              sx={{ transform: 'translate(-50%,-50%)' }}
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-start"
+              gap="24px"
+            >
+              <Typography variant="h6">Add a new lottery</Typography>
+
+              <Input
+                id="name"
+                name="name"
+                placeholder="Lottery name"
+                value={values.name}
+                onChange={handleChange}
+              />
+              {errors.name && (
+                <Typography variant="body1" color="red">
+                  {errors.name}
+                </Typography>
+              )}
+
+              <Input
+                id="prize"
+                name="prize"
+                placeholder="Lottery prize"
+                value={values.prize}
+                onChange={handleChange}
+              />
+              {errors.prize && (
+                <Typography variant="body1" color="red">
+                  {errors.prize}
+                </Typography>
+              )}
+              <Button
+                loading={isLoading}
+                variant="outlined"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                ADD
+              </Button>
+            </Box>
+          </form>
+        </Modal>
+      )}
+    </Formik>
   );
 };
 
