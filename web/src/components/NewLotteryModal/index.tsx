@@ -1,5 +1,5 @@
 import { Box, Input, Typography, Modal, Button } from '@mui/material';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { createLottery } from '../../service/lottery';
 import { useState } from 'react';
 import { Lottery } from '../../types';
@@ -25,15 +25,19 @@ const NewLotteryModal = ({
 
   const validationSchema = object({
     name: string().min(3, 'Min 3 letters').required('The name is required'),
-    prize: string()
-      .required('The prize is required')
-      .matches(/^[0-9]*$/, 'Only numbers'), // only numbers?
+    prize: string().min(3, 'Min 3 letters').required('The prize is required'),
   });
 
-  const handleSubmit = (values: { name: string; prize: string }) => {
+  const handleSubmit = (
+    values: { name: string; prize: string },
+    actions: FormikHelpers<{ name: string; prize: string }>,
+  ) => {
     setIsLoading(true);
     createLottery({ name: values.name, prize: values.prize })
-      .then((values) => handleClose(values))
+      .then((values) => {
+        handleClose(values);
+        actions.resetForm();
+      })
       .catch((error) => {
         // todo: let the user know the error
         console.log(error);
@@ -43,9 +47,10 @@ const NewLotteryModal = ({
 
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
+      onSubmit={(values, actions) => handleSubmit(values, actions)}
     >
       {({ isSubmitting, handleSubmit, values, handleChange, errors }) => (
         <Modal
