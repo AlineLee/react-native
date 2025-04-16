@@ -48,7 +48,7 @@ export async function getLotteries(): Promise<Lottery[]> {
 
 export async function registerLotteries(values: Register): Promise<Register> {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/registerxx`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

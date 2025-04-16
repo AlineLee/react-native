@@ -1,16 +1,28 @@
 import { useCallback, useEffect, useState } from 'react';
 import NewLotteryModal from '../../components/NewLotteryModal';
-import { Button, Box, Snackbar, Typography, Container } from '@mui/material';
+import {
+  Button,
+  Box,
+  Snackbar,
+  Typography,
+  Container,
+  TextField,
+  InputAdornment,
+} from '@mui/material';
 import { Lottery } from '../../types';
 import LotteryList from '../../components/LotteryList';
 import { getLotteries } from '../../service/lottery';
 import RegisterLotteryModal from '../../components/RegisterLotteryModal';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 const Home = () => {
   const [showNewLotteryModal, setShowNewLotteryModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
 
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const [fullLotteryList, setFullLotteryList] = useState<Lottery[]>([]);
   const [lotteryList, setLotteryList] = useState<Lottery[]>([]);
   const [selectedLotteryList, setSelectedLotteryList] = useState<string[]>([]);
 
@@ -21,7 +33,7 @@ const Home = () => {
     () =>
       getLotteries()
         .then((value) => {
-          setLotteryList(value);
+          setFullLotteryList(value);
         })
         .finally(() => setIsLoading(false)),
     [],
@@ -30,6 +42,15 @@ const Home = () => {
   useEffect(() => {
     loadLotteries().catch(() => console.log('Error on initial loading'));
   }, [loadLotteries]);
+
+  useEffect(() => {
+    const list = fullLotteryList.filter(
+      (lottery) =>
+        lottery.name.toLowerCase().search(searchTerm.toLowerCase()) !== -1,
+    );
+
+    setLotteryList(list);
+  }, [fullLotteryList, searchTerm]);
 
   const handleCloseModal = (lottery?: Lottery) => {
     setShowNewLotteryModal(false);
@@ -55,19 +76,39 @@ const Home = () => {
     return <>Loading...</>;
   }
 
-  if (!isLoading && !lotteryList.length) {
-    return <>Empty'</>;
-  }
-
   return (
     <Container>
       <Typography variant="h3" textAlign="center" marginBottom={2}>
         Lotteries
       </Typography>
-      <LotteryList
-        lotteryList={lotteryList}
-        setSelectedLotteryList={setSelectedLotteryList}
-      />
+      <Box display="flex" justifyContent="center" marginBottom={4}>
+        <TextField
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="start">
+                  <ManageSearchIcon />
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+      </Box>
+
+      {!isLoading && !lotteryList.length ? (
+        <Box textAlign="center">
+          <Typography>No search results for {searchTerm}</Typography>
+        </Box>
+      ) : (
+        <LotteryList
+          lotteryList={lotteryList}
+          setSelectedLotteryList={setSelectedLotteryList}
+        />
+      )}
+
       <Box
         display="flex"
         position="fixed"
@@ -96,7 +137,7 @@ const Home = () => {
       />
 
       <Snackbar
-        autoHideDuration={6000}
+        autoHideDuration={1000}
         open={showNotification}
         message={message}
       />
