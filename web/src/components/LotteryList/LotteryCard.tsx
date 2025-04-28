@@ -36,6 +36,9 @@ const LotteryCard = ({
           <Typography variant="body2" color="text.secondary">
             {lottery.prize}
           </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {lottery.id}
+          </Typography>
         </CardContent>
       </CardActionArea>
     </Card>

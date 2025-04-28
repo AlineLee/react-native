@@ -26,7 +26,12 @@ const LotteryList = ({
   };
 
   return (
-    <Box display="grid" gridTemplateColumns="1fr 1fr 1fr" gap="16px">
+    <Box
+      sx={{ margin: '12px' }}
+      display="grid"
+      gridTemplateColumns="1fr 1fr 1fr"
+      gap="16px"
+    >
       {lotteryList.map((lottery) => (
         <LotteryCard
           key={lottery.id}
