@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, Button, TextInput} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  TextInput,
+  NativeModules,
+} from 'react-native';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Lottery, NavigationProp} from '../types';
 import {useGetLotteries} from '../service/lottery';
@@ -14,6 +21,8 @@ export const Home = () => {
     error: getLotteriesErrors,
     refetch: refetchLotteryList,
   } = useGetLotteries();
+
+  const {Notification} = NativeModules;
 
   const isFocused = useIsFocused();
   const [inputSearch, setInputSearch] = useState('');
@@ -44,6 +53,11 @@ export const Home = () => {
     refetchLotteryList();
   }, [isFocused, refetchLotteryList]);
 
+  const handleNotification = () => {
+    console.log('Bla');
+    Notification.showNotification('Hi', 'Test test test test');
+  };
+
   if (isLoading) {
     return (
       <View>
@@ -64,6 +78,7 @@ export const Home = () => {
     <View style={styles.container}>
       <View style={styles.registerContainer}>
         <Button onPress={handleRegister} title="Register" />
+        <Button onPress={handleNotification} title="Notif" />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Lotteries</Text>
