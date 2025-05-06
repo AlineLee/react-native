@@ -11,7 +11,7 @@ import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Lottery, NavigationProp} from '../types';
 import {useGetLotteries} from '../service/lottery';
 import LotteryList from '../components/LotteryList';
-import Icon from '@react-native-vector-icons/fontawesome6';
+import {CustomButtonView} from '../components/CustomButtonTest';
 
 export const Home = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -58,14 +58,6 @@ export const Home = () => {
     Notification.showNotification('Hi', 'Test test test test');
   };
 
-  if (isLoading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
   if (getLotteriesErrors) {
     return (
       <View>
@@ -76,13 +68,13 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
+      <CustomButtonView text="Eai" disabled={false} style={styles.bla} />
       <View style={styles.registerContainer}>
         <Button onPress={handleRegister} title="Register" />
         <Button onPress={handleNotification} title="Notif" />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Lotteries</Text>
-        <Icon name="dice-five" size={30} iconStyle="solid" color="grey" />
       </View>
       <View style={styles.searchContainer}>
         <TextInput
@@ -90,24 +82,22 @@ export const Home = () => {
           onChange={e => setInputSearch(e.nativeEvent.text)}
           style={styles.inputSearch}
         />
-        <Icon
-          name="magnifying-glass"
-          size={24}
-          iconStyle="solid"
-          color="grey"
-        />
       </View>
-      {!isLoading && !lotteryList.length ? (
-        <Text
-          style={
-            styles.noResults
-          }>{`No search results for "${inputSearch}"`}</Text>
-      ) : (
-        <LotteryList
-          lotteryList={lotteryList || []}
-          selectedLotteryList={selectedLotteryList}
-          setSelectedLotteryList={setSelectedLotteryList}
-        />
+      {!isLoading && (
+        <View>
+          {!lotteryList.length ? (
+            <Text
+              style={
+                styles.noResults
+              }>{`No search results for "${inputSearch}"`}</Text>
+          ) : (
+            <LotteryList
+              lotteryList={lotteryList || []}
+              selectedLotteryList={selectedLotteryList}
+              setSelectedLotteryList={setSelectedLotteryList}
+            />
+          )}
+        </View>
       )}
       <View style={styles.buttonContainer}>
         <Button onPress={handleAddLottery} title="+" />
@@ -174,4 +164,8 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     borderRadius: 5,
   },
+  bla:{
+    width: 300,
+    height: 300,
+  }
 });

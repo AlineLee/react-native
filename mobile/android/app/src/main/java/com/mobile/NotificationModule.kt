@@ -39,19 +39,18 @@ class NotificationModule(context: ReactApplicationContext?) : ReactContextBaseJa
         return "Notification"
     }
 
-    // Annotated functions that will be accessible from JS, with the same name and signature
-    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
-    @ReactMethod
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS) // notifications need to be allowed in the device
+    @ReactMethod // this will allow JS to access this
     fun showNotification(title: String?, content: String?) {
-        // implementation detail of this method
         val builder = NotificationCompat.Builder(reactApplicationContext, notificationChannelId)
             .setSmallIcon(R.drawable.arrow_up_float)
             .setContentTitle(title)
             .setContentText(content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         val notificationManager = NotificationManagerCompat.from(reactApplicationContext)
-        notificationManager.notify(666, builder.build()) // Show notification
+        notificationManager.notify(666, builder.build()) // notificationId and the notification
     }
+
     @ReactMethod
     fun requestPermissions() {
         val permissions = arrayOf(
@@ -65,8 +64,8 @@ class NotificationModule(context: ReactApplicationContext?) : ReactContextBaseJa
             currentActivity?.let {
                 ActivityCompat.requestPermissions(
                     it,
-                    permissionsToRequest.toTypedArray(), // Convert list to array
-                    666 // Pass the request code
+                    permissionsToRequest.toTypedArray(),
+                    666 // notificationId
                 )
             }
         }
