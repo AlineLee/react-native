@@ -4,32 +4,22 @@ import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class RNCKCustomButtonViewManager: SimpleViewManager<RNCKCustomButtonModule>() {
+class RNCKCustomButtonViewManager: SimpleViewManager<RNCKCustomButton>() {
     override fun getName(): String {
         return "RNCKCustomButton"
     }
 
-    override fun createViewInstance(reactContext: ThemedReactContext): RNCKCustomButtonModule {
-        return RNCKCustomButtonModule(reactContext)
-    }
-
-    override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Map<String, Map<String, String>>> {
-        return mapOf(
-            "onPress" to mapOf(
-                "phaseRegistrationNames" to mapOf(
-                    "bubbled" to "onPress"
-                )
-            )
-        )
+    override fun createViewInstance(reactContext: ThemedReactContext): RNCKCustomButton {
+        return RNCKCustomButton(reactContext)
     }
 
     @ReactProp(name = "disabled")
-    fun setEnabled(button: RNCKCustomButtonModule, disabled: Boolean?) {
-        button.isEnabled = !disabled!! // why 3 ! ?
+    fun setEnabled(button: RNCKCustomButton, disabled: Boolean?) {
+        button.isEnabled = disabled == false
     }
 
     @ReactProp(name = "text")
-    fun setText(button: RNCKCustomButtonModule, text: String?) {
+    fun setText(button: RNCKCustomButton, text: String?) {
         button.text = text
     }
 }
