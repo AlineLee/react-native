@@ -13,6 +13,16 @@ class RNCKCustomButtonViewManager: SimpleViewManager<RNCKCustomButton>() {
         return RNCKCustomButton(reactContext)
     }
 
+    override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any>? {
+        return mapOf(
+            "onPress" to mapOf(
+                "phasedRegistrationNames" to mapOf(
+                    "bubbled" to "onPress"
+                )
+            )
+        )
+    }
+
     @ReactProp(name = "disabled")
     fun setEnabled(button: RNCKCustomButton, disabled: Boolean?) {
         button.isEnabled = disabled == false

@@ -10,7 +10,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter
 
 class RNCKCustomButton(context: Context?): AppCompatButton(context!!) {
     init {
-        setTextColor(Color.BLUE)
+        setTextColor(Color.WHITE)
         setOnClickListener { _: View? ->  // set on click listener
             val event = Arguments.createMap() // Create empty map for event data
             event.putString("action", "click") // add entry to event

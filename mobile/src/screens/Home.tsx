@@ -54,8 +54,7 @@ export const Home = () => {
   }, [isFocused, refetchLotteryList]);
 
   const handleNotification = () => {
-    console.log('Bla');
-    Notification.showNotification('Hi', 'Test test test test');
+    Notification.showNotification('React Native Message', 'New message from the react native app');
   };
 
   if (getLotteriesErrors) {
@@ -68,10 +67,15 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
-      <CustomButtonView text="Eai" disabled={false} style={styles.bla} />
       <View style={styles.registerContainer}>
         <Button onPress={handleRegister} title="Register" />
         <Button onPress={handleNotification} title="Notif" />
+        <CustomButtonView
+          text="Custom"
+          disabled={false}
+          style={styles.customButton}
+          onPress={() => console.log('CustomButton:','New click')}
+        />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Lotteries</Text>
@@ -164,8 +168,10 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     borderRadius: 5,
   },
-  bla:{
-    width: 300,
-    height: 300,
-  }
+  customButton: {
+    width: 100,
+    height: 50,
+    backgroundColor: '#1ce1ce',
+    fontSize: 16,
+  },
 });
