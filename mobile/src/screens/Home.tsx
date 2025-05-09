@@ -20,7 +20,6 @@ export const Home = () => {
     isLoading,
     error: getLotteriesErrors,
     refetch: refetchLotteryList,
-    status,
   } = useGetLotteries();
 
   const {Notification} = NativeModules;
@@ -72,9 +71,12 @@ export const Home = () => {
     );
   }
 
+  if (isLoading) {
+    return <Text>Loading</Text>;
+  }
+
   return (
     <View style={styles.container}>
-      <Text>fetchingLottery: {status}</Text>
       <View style={styles.registerContainer}>
         <Button onPress={handleRegister} title="Register" />
         <Button onPress={handleNotification} title="Notif" />
@@ -95,21 +97,17 @@ export const Home = () => {
           style={styles.inputSearch}
         />
       </View>
-      {!isLoading && (
-        <View>
-          {!lotteryList.length ? (
-            <Text
-              style={
-                styles.noResults
-              }>{`No search results for "${inputSearch}"`}</Text>
-          ) : (
-            <LotteryList
-              lotteryList={lotteryList || []}
-              selectedLotteryList={selectedLotteryList}
-              setSelectedLotteryList={setSelectedLotteryList}
-            />
-          )}
-        </View>
+      {!lotteryList.length ? (
+        <Text
+          style={
+            styles.noResults
+          }>{`No search results for "${inputSearch}"`}</Text>
+      ) : (
+        <LotteryList
+          lotteryList={lotteryList || []}
+          selectedLotteryList={selectedLotteryList}
+          setSelectedLotteryList={setSelectedLotteryList}
+        />
       )}
       <View style={styles.buttonContainer}>
         <Button onPress={handleAddLottery} title="+" />
@@ -140,6 +138,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     gap: 8,
+    backgroundColor: '#1ce1ce',
   },
   title: {
     fontSize: 30,
@@ -153,7 +152,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    paddingTop: 16,
+    paddingTop: 32,
+    paddingBottom: 32,
   },
   inputSearch: {
     fontSize: 16,

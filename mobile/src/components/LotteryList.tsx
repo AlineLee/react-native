@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {FlatList, useWindowDimensions} from 'react-native';
 import {Lottery} from '../types';
 import LotteryCard from './LotteryCard';
 
@@ -24,35 +24,26 @@ const LotteryList = ({
       return [...items, lotteryId];
     });
   };
+  const {width} = useWindowDimensions();
+
+  const renderCard = ({item}: {item: Lottery}) => {
+    return (
+      <LotteryCard
+        lottery={item}
+        onCardSelect={handleSelectCard}
+        selected={selectedLotteryList.includes(item.id)}
+      />
+    );
+  };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {lotteryList?.map(lottery => (
-          <LotteryCard
-            key={lottery.id}
-            lottery={lottery}
-            selected={selectedLotteryList.includes(lottery.id)}
-            onCardSelect={handleSelectCard}
-          />
-        ))}
-      </ScrollView>
-    </View>
+    <FlatList
+      data={lotteryList}
+      renderItem={renderCard}
+      keyExtractor={item => item.id}
+      style={{width: width - 32}}
+    />
   );
 };
 
 export default LotteryList;
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flex: 1,
-    gap: 16,
-  },
-  scrollContainer: {
-    paddingBottom: 32,
-  },
-  lotteryCard: {
-    display: 'flex',
-  },
-});

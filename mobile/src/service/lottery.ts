@@ -1,5 +1,5 @@
-// import {REACT_APP_API_URL} from '@env';
-const REACT_APP_API_URL = 'http://192.168.50.106:3000';
+import {REACT_APP_API_URL} from '@env';
+// const REACT_APP_API_URL = 'http://10.10.128.37:3000';
 
 import {useMutation, useQuery} from '@tanstack/react-query';
 import {Lottery} from '../types';
