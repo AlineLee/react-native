@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, Button, TextInput} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Button,
+  TextInput,
+  NativeModules,
+} from 'react-native';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Lottery, NavigationProp} from '../types';
 import {useGetLotteries} from '../service/lottery';
 import LotteryList from '../components/LotteryList';
-import Icon from '@react-native-vector-icons/fontawesome6';
+import {CustomButtonView} from '../components/CustomButtonTest';
 
 export const Home = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -14,6 +21,8 @@ export const Home = () => {
     error: getLotteriesErrors,
     refetch: refetchLotteryList,
   } = useGetLotteries();
+
+  const {Notification} = NativeModules;
 
   const isFocused = useIsFocused();
   const [inputSearch, setInputSearch] = useState('');
@@ -44,13 +53,9 @@ export const Home = () => {
     refetchLotteryList();
   }, [isFocused, refetchLotteryList]);
 
-  if (isLoading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
+  const handleNotification = () => {
+    Notification.showNotification('React Native Message', 'New message from the react native app');
+  };
 
   if (getLotteriesErrors) {
     return (
@@ -64,10 +69,16 @@ export const Home = () => {
     <View style={styles.container}>
       <View style={styles.registerContainer}>
         <Button onPress={handleRegister} title="Register" />
+        <Button onPress={handleNotification} title="Notif" />
+        <CustomButtonView
+          text="Custom"
+          disabled={false}
+          style={styles.customButton}
+          onPress={() => console.log('CustomButton:','New click')}
+        />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Lotteries</Text>
-        <Icon name="dice-five" size={30} iconStyle="solid" color="grey" />
       </View>
       <View style={styles.searchContainer}>
         <TextInput
@@ -75,24 +86,22 @@ export const Home = () => {
           onChange={e => setInputSearch(e.nativeEvent.text)}
           style={styles.inputSearch}
         />
-        <Icon
-          name="magnifying-glass"
-          size={24}
-          iconStyle="solid"
-          color="grey"
-        />
       </View>
-      {!isLoading && !lotteryList.length ? (
-        <Text
-          style={
-            styles.noResults
-          }>{`No search results for "${inputSearch}"`}</Text>
-      ) : (
-        <LotteryList
-          lotteryList={lotteryList || []}
-          selectedLotteryList={selectedLotteryList}
-          setSelectedLotteryList={setSelectedLotteryList}
-        />
+      {!isLoading && (
+        <View>
+          {!lotteryList.length ? (
+            <Text
+              style={
+                styles.noResults
+              }>{`No search results for "${inputSearch}"`}</Text>
+          ) : (
+            <LotteryList
+              lotteryList={lotteryList || []}
+              selectedLotteryList={selectedLotteryList}
+              setSelectedLotteryList={setSelectedLotteryList}
+            />
+          )}
+        </View>
       )}
       <View style={styles.buttonContainer}>
         <Button onPress={handleAddLottery} title="+" />
@@ -158,5 +167,11 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 24,
     borderRadius: 5,
+  },
+    customButton: {
+    width: 100,
+    height: 50,
+    backgroundColor: '#1ce1ce',
+    fontSize: 16,
   },
 });
