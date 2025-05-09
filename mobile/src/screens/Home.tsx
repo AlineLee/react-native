@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     borderRadius: 5,
   },
-  customButton: {
+    customButton: {
     width: 100,
     height: 50,
     backgroundColor: '#1ce1ce',
