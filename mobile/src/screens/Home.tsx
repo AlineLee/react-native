@@ -20,6 +20,7 @@ export const Home = () => {
     isLoading,
     error: getLotteriesErrors,
     refetch: refetchLotteryList,
+    status,
   } = useGetLotteries();
 
   const {Notification} = NativeModules;
@@ -54,19 +55,26 @@ export const Home = () => {
   }, [isFocused, refetchLotteryList]);
 
   const handleNotification = () => {
-    Notification.showNotification('React Native Message', 'New message from the react native app');
+    Notification.showNotification(
+      'React Native Message',
+      'New message from the react native app',
+    );
   };
 
   if (getLotteriesErrors) {
     return (
       <View>
-        <Text>{getLotteriesErrors?.message}</Text>
+        <Text>Error feching the lotteries</Text>
+        <Text>
+          {getLotteriesErrors?.name}: {getLotteriesErrors?.message}
+        </Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
+      <Text>fetchingLottery: {status}</Text>
       <View style={styles.registerContainer}>
         <Button onPress={handleRegister} title="Register" />
         <Button onPress={handleNotification} title="Notif" />
@@ -74,7 +82,7 @@ export const Home = () => {
           text="Custom"
           disabled={false}
           style={styles.customButton}
-          onPress={() => console.log('CustomButton:','New click')}
+          onPress={() => console.log('CustomButton:', 'New click')}
         />
       </View>
       <View style={styles.titleContainer}>
@@ -168,7 +176,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     borderRadius: 5,
   },
-    customButton: {
+  customButton: {
     width: 100,
     height: 50,
     backgroundColor: '#1ce1ce',

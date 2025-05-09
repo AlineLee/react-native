@@ -1,4 +1,4 @@
-// import { REACT_APP_API_URL } from '@env';
+// import {REACT_APP_API_URL} from '@env';
 const REACT_APP_API_URL = 'http://192.168.50.106:3000';
 
 import {useMutation, useQuery} from '@tanstack/react-query';
@@ -21,8 +21,9 @@ export const useCreateNewLottery = () => {
   });
 };
 
-export const useGetLotteries = () =>
-  useQuery<Lottery[]>({
+export const useGetLotteries = () => {
+  console.log('useGetLotteries ip:', REACT_APP_API_URL);
+  return useQuery<Lottery[]>({
     queryKey: ['lotteries'],
     queryFn: async () => {
       const response = await fetch(`${REACT_APP_API_URL}/lotteries`, {
@@ -31,11 +32,12 @@ export const useGetLotteries = () =>
           'Content-Type': 'application/json',
         },
       });
-      const body = await response.json();
+      const body = await response.json() as Lottery[];
 
       return body;
     },
   });
+};
 
 export const useRegisterLotteries = () => {
   return useMutation({
